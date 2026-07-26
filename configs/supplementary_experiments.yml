@@ -1,0 +1,106 @@
+# =============================================================================
+# Controlled one-shot DMP experiment configuration
+# =============================================================================
+
+# Every CSV must contain one usable numeric column.  The first numeric column
+# is read automatically.  Add/remove datasets here, or delete this list and
+# use the "glob" entry to discover every CSV below data/.
+data:
+  root: "data"
+  glob: "*.csv"
+  datasets:
+    - name: electricity
+      file: electricity.csv
+    - name: mackey
+      file: mackey.csv
+    - name: solar
+      file: solar.csv
+    - name: temperature
+      file: temperature.csv
+    - name: wind
+      file: wind.csv
+    # Example additional dataset:
+    # - name: traffic
+    #   file: traffic.csv
+
+# The boundaries are fixed before model training.  Training targets are clipped
+# so they never cross into the test block.
+split:
+  washout_ratio: 0.10
+  train_ratio: 0.70
+  test_ratio: 0.20
+
+# Shared hyperparameters used by the full ESN, fresh smaller ESN, and every
+# pruning baseline in this controlled experiment group.
+esn:
+  leak_rate: 0.5
+  # Target spectral radius for the full reservoir and explicitly rescaled
+  # pruning variants.
+  spectral_radius: 0.90
+  input_scaling: 0.50
+  bias_scaling: 0.20
+
+  # This is the fraction of recurrent entries set to exactly zero.
+  # It is named zero_fraction to avoid the ambiguous word "sparsity".
+  zero_fraction: 0.10
+
+  # Ridge regularisation applied when refitting the linear readout.
+  ridge_alpha: 1.0e-2
+  spectral_radius_iterations: 80
+
+# Controlled matched experiments.
+experiment:
+  reservoir_size: 1000
+  prune_ratio: 0.20
+  direct_horizon: 20
+
+  # Ten paired seeds are used for the paired comparison.  Every pruning method
+  # starts from the same full reservoir for a given seed.
+  seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+  # Both normalized MSE and NRMSE are saved.  This metric is used in Table 1.
+  primary_metric: nrmse_at_h
+
+# DMP is strictly one-shot in this code.  There is no progressive option.
+dmp:
+  energy_tau: 0.90
+
+# A practical matched centrality baseline.  Exact weighted betweenness on a
+# nearly dense 1000-node graph is extremely slow, so the graph keeps the
+# strongest outgoing edges per node and samples source nodes.  These settings
+# are saved in metrics.csv and must be stated when reporting this baseline.
+centrality:
+  enabled: true
+  sample_sources: 128
+  strongest_edges_per_node: 20
+
+# Table 3 uses a one-step readout in autonomous closed loop.  It is most
+# meaningful for self-driven dynamical datasets such as Mackey--Glass.
+dynamical_evaluation:
+  enabled: true
+  datasets: [mackey]
+  rollout_steps: 500
+  valid_threshold_std: 0.40
+  autocorrelation_max_lag: 100
+  skip_existing: true
+
+runtime:
+  device: auto
+  dtype: auto
+  skip_existing: true
+
+  # Inference latency is the median recurrent-update + readout time per step.
+  benchmark_steps: 300
+  warmup_repeats: 3
+  measured_repeats: 20
+
+plots:
+  save_per_run_plots: true
+  dpi: 320
+  font_size: 17
+  max_points: 500
+
+output:
+  # Use a dedicated output directory so results from different configurations
+  # cannot be mixed when skip_existing is enabled.
+  root: "results/supplementary_experiments_r1000_rho090_ridge1e-2"

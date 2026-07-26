@@ -1,0 +1,15 @@
+# Numerical computing
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+
+# Echo State Network implementation
+torch>=2.0
+
+# Graph-based pruning baselines
+networkx>=3.0
+
+# Plotting and experiment utilities
+matplotlib>=3.7
+PyYAML>=6.0
+psutil>=5.9
