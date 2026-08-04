@@ -61,11 +61,13 @@ dmp:
   # beta_readout: 0.30
   # gamma_occupancy: 0.15
 
-  # Pruning schedule / stabilization
-  progressive: true
+  # Main paper protocol: score the original reservoir once and remove the
+  # requested neurons in a single step. Stabilization remains available only
+  # for explicitly configured ablations.
+  progressive: false
   progressive_step_ratio: 0.05
-  match_jacobian_energy_density: true
-  fallback_match_spectral_radius: true
+  match_jacobian_energy_density: false
+  fallback_match_spectral_radius: false
 
   reservoir_sizes: [100, 200, 300, 500, 700, 1000]
 

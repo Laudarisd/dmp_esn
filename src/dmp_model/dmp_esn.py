@@ -758,13 +758,13 @@ class DMPConfig:
     beta_readout: float = 0.0
     gamma_occupancy: float = 0.0
 
-    # Pruning schedule
-    progressive: bool = True
+    # Paper-default protocol: one-shot pruning without implicit rescaling.
+    progressive: bool = False
     progressive_step_ratio: float = 0.05
 
-    # Stabilization
-    match_jacobian_energy_density: bool = True
-    fallback_match_spectral_radius: bool = True
+    # Optional stabilization ablations
+    match_jacobian_energy_density: bool = False
+    fallback_match_spectral_radius: bool = False
 
     def __post_init__(self) -> None:
         if self.tau <= 0:
@@ -823,7 +823,7 @@ class DMPESN:
     1. Build and train the base ESN.
     2. Collect the teacher-forced trajectory.
     3. Compute DMP scores from the Jacobian Gram matrix.
-    4. Prune neurons progressively or in one shot.
+    4. Prune neurons in one shot by default (progressive pruning is optional).
     5. Stabilize the pruned reservoir.
     6. Retrain only the output readout.
     """
@@ -1246,10 +1246,10 @@ class DMPESN:
 #     # beta_readout=0.30,
 #     # gamma_occupancy=0.15,
 #
-#     progressive=True,
+#     progressive=False,
 #     progressive_step_ratio=0.05,
-#     match_jacobian_energy_density=True,
-#     fallback_match_spectral_radius=True,
+#     match_jacobian_energy_density=False,
+#     fallback_match_spectral_radius=False,
 # )
 #
 # model = DMPESN(

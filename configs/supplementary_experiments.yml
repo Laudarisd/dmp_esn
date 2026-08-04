@@ -45,7 +45,7 @@ esn:
   zero_fraction: 0.10
 
   # Ridge regularisation applied when refitting the linear readout.
-  ridge_alpha: 1.0e-2
+  ridge_alpha: 1.0e-4
   spectral_radius_iterations: 80
 
 # Controlled matched experiments.

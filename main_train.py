@@ -143,14 +143,14 @@ DMP_CONFIG = {
     "gamma_occupancy": get_float(CFG_DMP, "gamma_occupancy", 0.0),
 
     # Pruning schedule / stabilization
-    "progressive": get_bool(CFG_DMP, "progressive", True),
+    "progressive": get_bool(CFG_DMP, "progressive", False),
     "progressive_step_ratio": get_float(CFG_DMP, "progressive_step_ratio", 0.05),
     "match_jacobian_energy_density": get_bool(
         CFG_DMP,
         "match_jacobian_energy_density",
-        get_bool(CFG_DMP, "match_jacobian_energy", True),
+        get_bool(CFG_DMP, "match_jacobian_energy", False),
     ),
-    "fallback_match_spectral_radius": get_bool(CFG_DMP, "fallback_match_spectral_radius", True),
+    "fallback_match_spectral_radius": get_bool(CFG_DMP, "fallback_match_spectral_radius", False),
 
     "reservoir_sizes": get_list_int(CFG_DMP, "reservoir_sizes", [1000]),
 }

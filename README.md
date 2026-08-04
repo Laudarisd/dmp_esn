@@ -725,12 +725,12 @@ experiment:
   seeds: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 esn:
-  leak_rate: 0.4
-  spectral_radius: 0.95
+  leak_rate: 0.5
+  spectral_radius: 0.90
   input_scaling: 0.5
   bias_scaling: 0.2
   zero_fraction: 0.10
-  ridge_alpha: 1.0e-6
+  ridge_alpha: 1.0e-4
 
 dmp:
   energy_tau: 0.90
