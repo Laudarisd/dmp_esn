@@ -769,11 +769,11 @@ $$
 Please cite the accompanying paper when using this implementation:
 
 ```bibtex
-@inproceedings{dmp_esn_2026,
-  title     = {Rethinking Reservoir Pruning: A Dynamical Perspective for Echo State Networks},
-  author    = {Anonymous},
-  booktitle = {Advances in Neural Information Processing Systems},
-  year      = {2026}
+@article{laudari2026rethinking,
+  title={Rethinking Reservoir Pruning: A Dynamical Perspective for Echo State Networks},
+  author={Laudari, Sudip and Adhikari, Puspa Raj},
+  journal={arXiv preprint arXiv:2608.04593},
+  year={2026}
 }
 ```
 
