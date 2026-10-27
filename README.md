@@ -59,7 +59,7 @@ with
 ```math
 D(t)
 =
-\operatorname{diag}
+\mathrm{diag}
 \left(
 f'\!\left(\mathbf{z}(t)\right)
 \right),
@@ -193,18 +193,18 @@ Spectral-radius rescaling is available as an explicit experimental variant. It i
 
 ### Main components
 
-| Path                     | Purpose                                                                                                 |
-| ------------------------ | ------------------------------------------------------------------------------------------------------- |
-| `main_train.py`        | Runs the broad benchmark, scaling, forecasting-horizon, pruning-ratio, and reference-model experiments. |
-| `run_supplementary.py` | Runs the controlled one-shot comparison, efficiency analysis, and autonomous dynamical evaluation.      |
-| `src/dmp_model/`       | Main DMP implementation used in the broad benchmark pipeline.                                           |
-| `src/sota_models/`     | Base, Leaky, Deep, betweenness-pruned, and closeness-pruned ESN implementations.                        |
-| `src/supplementary/`   | Controlled experiment utilities, model evaluation, plotting, and table generation.                      |
-| `configs/`             | YAML configuration files for the two experiment pipelines.                                              |
-| `supplementary/`       | Compact LaTeX source for the supplementary material.                                                    |
-| `figures/`             | Paper and supplementary figures.                                                                        |
-| `results/`             | Generated experiment outputs.                                                                           |
-| `logs/`                | Runtime logs.                                                                                           |
+| Path | Purpose |
+|---|---|
+| `main_train.py` | Runs the broad benchmark, scaling, forecasting-horizon, pruning-ratio, and reference-model experiments. |
+| `run_supplementary.py` | Runs the controlled one-shot comparison, efficiency analysis, and autonomous dynamical evaluation. |
+| `src/dmp_model/` | Main DMP implementation used in the broad benchmark pipeline. |
+| `src/sota_models/` | Base, Leaky, Deep, betweenness-pruned, and closeness-pruned ESN implementations. |
+| `src/supplementary/` | Controlled experiment utilities, model evaluation, plotting, and table generation. |
+| `configs/` | YAML configuration files for the two experiment pipelines. |
+| `supplementary/` | Compact LaTeX source for the supplementary material. |
+| `figures/` | Paper and supplementary figures. |
+| `results/` | Generated experiment outputs. |
+| `logs/` | Runtime logs. |
 
 ---
 
@@ -452,7 +452,7 @@ The controlled forecasting experiments save:
 At forecasting horizon $h$, the mean squared error is
 
 ```math
-\operatorname{MSE}_h
+\mathrm{MSE}_h
 =
 \frac{1}{n_h}
 \sum_{j=1}^{n_h}
@@ -470,7 +470,7 @@ where $n_h$ is the number of test predictions at horizon $h$.
 The root mean squared error is
 
 ```math
-\operatorname{RMSE}_h
+\mathrm{RMSE}_h
 =
 \sqrt{
 \frac{1}{n_h}
@@ -488,10 +488,10 @@ y^{(h)}_j
 The normalized root mean squared error is
 
 ```math
-\operatorname{NRMSE}_h
+\mathrm{NRMSE}_h
 =
 \frac{
-\operatorname{RMSE}_h
+\mathrm{RMSE}_h
 }{
 \sigma\!\left(
 \mathbf{y}^{(h)}
@@ -546,7 +546,7 @@ The analysis reports:
 For an autonomous rollout of length $L$,
 
 ```math
-\operatorname{NRMSE}_{\mathrm{rollout}}
+\mathrm{NRMSE}_{\mathrm{rollout}}
 =
 \frac{
 \sqrt{
