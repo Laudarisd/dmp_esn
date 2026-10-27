@@ -24,7 +24,7 @@ The codebase includes:
 
 For a leaky ESN, the reservoir state evolves as
 
-$$
+```math
 \mathbf{x}(t+1)
 =
 (1-a)\mathbf{x}(t)
@@ -34,7 +34,7 @@ W\mathbf{x}(t)
 +
 W^{\mathrm{in}}\mathbf{u}(t+1)
 \right),
-$$
+```
 
 where:
 
@@ -46,48 +46,48 @@ where:
 
 The local transition Jacobian is
 
-$$
+```math
 J(t)
 =
 (1-a)I
 +
 aD(t)W,
-$$
+```
 
 with
 
-$$
+```math
 D(t)
 =
 \operatorname{diag}
 \left(
 f'\!\left(\mathbf{z}(t)\right)
 \right),
-$$
+```
 
 where $\mathbf{z}(t)$ is the reservoir pre-activation.
 
 DMP aggregates the transition Jacobians over the driven trajectory to form the trajectory-averaged Jacobian Gramian
 
-$$
+```math
 \mathcal{G}
 =
 \frac{1}{T}
 \sum_{t=1}^{T}
 J(t)^{\top}J(t).
-$$
+```
 
 The Gramian eigendecomposition is
 
-$$
+```math
 \mathcal{G}
 =
 V\Lambda V^{\top},
-$$
+```
 
 where the eigenvalues are ordered as
 
-$$
+```math
 \lambda_1
 \geq
 \lambda_2
@@ -97,37 +97,37 @@ $$
 \lambda_N
 \geq
 0.
-$$
+```
 
 The normalized modal energy is
 
-$$
+```math
 \widetilde{\lambda}_k
 =
 \frac{\lambda_k}
 {\sum_{j=1}^{N}\lambda_j}.
-$$
+```
 
 DMP retains the smallest number of leading modes $r$ satisfying
 
-$$
+```math
 \sum_{k=1}^{r}
 \widetilde{\lambda}_k
 \geq
 \tau,
-$$
+```
 
 where $\tau\in(0,1]$ is the prescribed energy threshold.
 
 The importance of reservoir neuron $i$ is then defined as
 
-$$
+```math
 \eta_i
 =
 \sum_{k=1}^{r}
 \widetilde{\lambda}_k
 V_{ik}^{2}.
-$$
+```
 
 The highest-scoring neurons are retained. The recurrent reservoir is reduced by extracting the corresponding principal submatrix of $W$, and the input matrix is reduced using the same neuron indices. The recurrent weights remain fixed after pruning, and only the linear readout is refitted.
 
@@ -193,18 +193,18 @@ Spectral-radius rescaling is available as an explicit experimental variant. It i
 
 ### Main components
 
-| Path | Purpose |
-|---|---|
-| `main_train.py` | Runs the broad benchmark, scaling, forecasting-horizon, pruning-ratio, and reference-model experiments. |
-| `run_supplementary.py` | Runs the controlled one-shot comparison, efficiency analysis, and autonomous dynamical evaluation. |
-| `src/dmp_model/` | Main DMP implementation used in the broad benchmark pipeline. |
-| `src/sota_models/` | Base, Leaky, Deep, betweenness-pruned, and closeness-pruned ESN implementations. |
-| `src/supplementary/` | Controlled experiment utilities, model evaluation, plotting, and table generation. |
-| `configs/` | YAML configuration files for the two experiment pipelines. |
-| `supplementary/` | Compact LaTeX source for the supplementary material. |
-| `figures/` | Paper and supplementary figures. |
-| `results/` | Generated experiment outputs. |
-| `logs/` | Runtime logs. |
+| Path                     | Purpose                                                                                                 |
+| ------------------------ | ------------------------------------------------------------------------------------------------------- |
+| `main_train.py`        | Runs the broad benchmark, scaling, forecasting-horizon, pruning-ratio, and reference-model experiments. |
+| `run_supplementary.py` | Runs the controlled one-shot comparison, efficiency analysis, and autonomous dynamical evaluation.      |
+| `src/dmp_model/`       | Main DMP implementation used in the broad benchmark pipeline.                                           |
+| `src/sota_models/`     | Base, Leaky, Deep, betweenness-pruned, and closeness-pruned ESN implementations.                        |
+| `src/supplementary/`   | Controlled experiment utilities, model evaluation, plotting, and table generation.                      |
+| `configs/`             | YAML configuration files for the two experiment pipelines.                                              |
+| `supplementary/`       | Compact LaTeX source for the supplementary material.                                                    |
+| `figures/`             | Paper and supplementary figures.                                                                        |
+| `results/`             | Generated experiment outputs.                                                                           |
+| `logs/`                | Runtime logs.                                                                                           |
 
 ---
 
@@ -402,7 +402,7 @@ For a fixed seed, all pruning methods in the controlled suite:
 
 The Jacobian column-energy baseline ranks neuron $i$ using
 
-$$
+```math
 s_i^{\mathrm{Jac}}
 =
 \mathcal{G}_{ii}
@@ -412,19 +412,19 @@ s_i^{\mathrm{Jac}}
 \left\|
 J_{:,i}(t)
 \right\|_2^2.
-$$
+```
 
 This quantity is the trajectory-averaged squared column norm of the transition Jacobian.
 
 The DMP score differs from this baseline because it uses only the dominant retained modes of the Gramian:
 
-$$
+```math
 \eta_i
 =
 \sum_{k=1}^{r}
 \widetilde{\lambda}_k
 V_{ik}^{2}.
-$$
+```
 
 ---
 
@@ -451,7 +451,7 @@ The controlled forecasting experiments save:
 
 At forecasting horizon $h$, the mean squared error is
 
-$$
+```math
 \operatorname{MSE}_h
 =
 \frac{1}{n_h}
@@ -461,7 +461,7 @@ $$
 -
 y^{(h)}_j
 \right)^2,
-$$
+```
 
 where $n_h$ is the number of test predictions at horizon $h$.
 
@@ -469,7 +469,7 @@ where $n_h$ is the number of test predictions at horizon $h$.
 
 The root mean squared error is
 
-$$
+```math
 \operatorname{RMSE}_h
 =
 \sqrt{
@@ -481,13 +481,13 @@ $$
 y^{(h)}_j
 \right)^2
 }.
-$$
+```
 
 ### Normalized root mean squared error
 
 The normalized root mean squared error is
 
-$$
+```math
 \operatorname{NRMSE}_h
 =
 \frac{
@@ -497,7 +497,7 @@ $$
 \mathbf{y}^{(h)}
 \right)
 },
-$$
+```
 
 where $\sigma(\mathbf{y}^{(h)})$ is the population standard deviation of the corresponding test targets.
 
@@ -545,7 +545,7 @@ The analysis reports:
 
 For an autonomous rollout of length $L$,
 
-$$
+```math
 \operatorname{NRMSE}_{\mathrm{rollout}}
 =
 \frac{
@@ -559,7 +559,7 @@ $$
 }{
 \sigma(\mathbf{y})
 }.
-$$
+```
 
 ### Valid prediction length
 
@@ -567,7 +567,7 @@ The valid prediction length is the number of rollout steps before the normalized
 
 The normalized absolute error at step $t$ is
 
-$$
+```math
 e_t^{\mathrm{norm}}
 =
 \frac{
@@ -577,7 +577,7 @@ e_t^{\mathrm{norm}}
 }{
 \sigma(\mathbf{y})
 }.
-$$
+```
 
 ### Power spectral density distance
 
@@ -752,7 +752,7 @@ jacobian_diagonal_rho
 
 for compatibility with previously generated result files. This key refers to the same score:
 
-$$
+```math
 \mathcal{G}_{ii}
 =
 \frac{1}{T}
@@ -760,7 +760,7 @@ $$
 \left\|
 J_{:,i}(t)
 \right\|_2^2.
-$$
+```
 
 ---
 
